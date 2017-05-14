@@ -26,11 +26,11 @@ public class App
     {
     	String code;
     	int number=0;
-    	for(int i=0;i<605000;i++){
+    	for(int i=1;i<605000;i++){
     		if(i>3000&&i<300000){
     			continue;
     		}
-    		if(i>300500&&i<600000){
+    		if(i>300700&&i<600000){
     			continue;
     		}
     		code=String.valueOf(i);
@@ -79,21 +79,28 @@ public class App
 							}
             				
             			}
+            			int startrow = 1;
             			boolean flag=false;
-            			for(int row=1;row<hssfSheet.getLastRowNum();row++){
+            			for(int row=startrow;row<hssfSheet.getLastRowNum();row++){
             				HSSFRow hssfRow=hssfSheet.getRow(row);
             				HSSFCell cell=hssfRow.getCell(0);
             				
             				try{
 	            				if(i==(int)cell.getNumericCellValue()){
 	            					HSSFCell cell2=hssfRow.getCell(yearnumber);
+	            					if(cell2==null){
+	            						cell2=hssfRow.createCell(yearnumber);
+	            					}
 	            					cell2.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
 	            					cell2.setCellValue(Double.parseDouble(value));
 	            					cell2=hssfRow.getCell(1);
 	            					cell2.setCellValue(name);
 	            					flag=true;
+	            					startrow=row;
+	            					break;
 	            				}
             				}catch(Exception e){
+            					e.printStackTrace();
             					
             				}
             			}
