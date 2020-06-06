@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +27,7 @@ public class App
     {
     	String code;
     	int number=0;
-    	for(int i=1;i<605000;i++){
+    	for(int i=1;i<607000;i++){
     		if(i>3000&&i<300000){
     			continue;
     		}
@@ -38,7 +39,7 @@ public class App
     			code="0"+code;
     		}
     		String url="http://money.finance.sina.com.cn/corp/view/vFD_FinancialGuideLineHistory.php?stockid="+code+"&typecode=financialratios62";
-        	String date="2016-12-31";
+        	String date="2019-12-31";
         	String[] temp=date.split("-");
         	String year=temp[0];
             String answer=createhttpClient(url, "");
@@ -61,7 +62,7 @@ public class App
     	        System.out.println(value);
            
             try{
-            	InputStream instream = new FileInputStream("财务报表-净资产收益率2010.xls");   
+            	InputStream instream = new FileInputStream("财务报表-净资产收益率2019.xls");   
             	HSSFWorkbook hssfWorkbook=new  HSSFWorkbook(instream);
             	for(int sheetnumber=0;sheetnumber<hssfWorkbook.getNumberOfSheets();sheetnumber++){
             		if(hssfWorkbook.getSheetName(sheetnumber).equals(year)){		//这张表
@@ -75,6 +76,7 @@ public class App
                 					break;
                 				}
 							} catch (Exception e) {
+//								e.printStackTrace();
 								// TODO: handle exception
 							}
             				
@@ -118,7 +120,7 @@ public class App
             			
             		}
             	}
-            	OutputStream os=new FileOutputStream("财务报表-净资产收益率2010.xls");  
+            	OutputStream os=new FileOutputStream("财务报表-净资产收益率2019.xls");  
             	hssfWorkbook.write(os);
             	os.close();
             	instream.close();
